@@ -10,6 +10,8 @@ const Formulario = () => {
         sintomas: ''
     });
 
+    const [error, actualizarError] = useState(false);
+
     // Funcion que se ejecuta cada que el usuario escribe en el input
     const actualizarState = e => {
         actualizarCita({
@@ -19,12 +21,35 @@ const Formulario = () => {
     }
 
     // Extraer los valores
-    const { mascota, propiteario, fecha, hora, sintomas } = cita;
+    const { mascota, propietario, fecha, hora, sintomas } = cita;
+
+    // Cuando el usuario presiona "Agregar cita"
+    const submitCita = e => {
+        e.preventDefault();
+
+        // Validar
+        if( mascota.trim() === '' || propietario.trim() === '' || fecha.trim() === '' || hora.trim() === '' || sintomas.trim() === '' ) {
+            actualizarError(true);
+
+            return;
+        }
+
+        // Asignar un ID
+
+        // Crear la cita
+
+        // Reiniciar el form
+    }
 
     return (
         <Fragment>
             <h2>Crear cita</h2>
-            <form>
+
+            { error ? <p className="alerta-error">Todos los campos son oblitarios</p> : null }
+
+            <form
+                onSubmit={submitCita}
+            >
                 <label>Nombre mascota</label>
                 <input
                     type="text"
@@ -42,7 +67,7 @@ const Formulario = () => {
                     className="u-full-width"
                     placeholder="Nombre dueño"
                     onChange={actualizarState}
-                    value={propiteario}
+                    value={propietario}
                 />
 
                 <label>Fecha</label>
