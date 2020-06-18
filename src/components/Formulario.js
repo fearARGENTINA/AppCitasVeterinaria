@@ -1,53 +1,83 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from 'react';
 
 const Formulario = () => {
-  return (
-    <Fragment>
-      <h2>Crear cita</h2>
-      <form>
-        <label>Nombre mascota</label>
-        <input
-          type="text"
-          name="mascota"
-          className="u-full-width"
-          placeholder="Nombre mascota"
-        />
+    // Crear State de Citas
+    const [cita, actualizarCita] = useState({
+        mascota: '',
+        propietario: '',
+        fecha: '',
+        hora: '',
+        sintomas: ''
+    });
 
-        <label>Nombre dueño</label>
-        <input
-          type="text"
-          name="propietario"
-          className="u-full-width"
-          placeholder="Nombre dueño"
-        />
+    // Funcion que se ejecuta cada que el usuario escribe en el input
+    const actualizarState = e => {
+        actualizarCita({
+            ...cita,
+            [e.target.name] : e.target.value
+        });
+    }
 
-        <label>Fecha</label>
-        <input
-          type="date"
-          name="fecha"
-          className="u-full-width"
-        />
+    // Extraer los valores
+    const { mascota, propiteario, fecha, hora, sintomas } = cita;
 
-        <label>Fecha</label>
-        <input
-          type="time"
-          name="hora"
-          className="u-full-width"
-        />
+    return (
+        <Fragment>
+            <h2>Crear cita</h2>
+            <form>
+                <label>Nombre mascota</label>
+                <input
+                    type="text"
+                    name="mascota"
+                    className="u-full-width"
+                    placeholder="Nombre mascota"
+                    onChange={actualizarState}
+                    value={mascota}
+                />
 
-        <label>Sintomas</label>
-        <textarea
-            className="u-full-width"
-            name="sintomas"
-        ></textarea>
+                <label>Nombre dueño</label>
+                <input
+                    type="text"
+                    name="propietario"
+                    className="u-full-width"
+                    placeholder="Nombre dueño"
+                    onChange={actualizarState}
+                    value={propiteario}
+                />
 
-        <button
-            type="submit"
-            className="u-full-width button-primary"
-        >Agregar cita</button>
-      </form>
-    </Fragment>
-  );
+                <label>Fecha</label>
+                <input
+                    type="date"
+                    name="fecha"
+                    className="u-full-width"
+                    onChange={actualizarState}
+                    value={fecha}
+                />
+
+                <label>Hora</label>
+                <input 
+                    type="time" 
+                    name="hora" 
+                    className="u-full-width"
+                    onChange={actualizarState}
+                    value={hora}
+                />
+
+                <label>Sintomas</label>
+                <textarea 
+                    className="u-full-width"
+                    name="sintomas"
+                    onChange={actualizarState}
+                    value={sintomas}
+                ></textarea>
+
+                <button
+                    type="submit" 
+                    className="u-full-width button-primary"
+                >Agregar cita</button>
+            </form>
+        </Fragment>
+    );
 };
 
 export default Formulario;
